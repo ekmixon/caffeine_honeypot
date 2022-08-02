@@ -28,33 +28,27 @@ class Decoy(object):
                 self.CONFIGURATION_CONFIGURATION_UUID_PARAM)
         }
 
-        response = requests.post(
-            url='%s/report_status/' % self.mazerunner_url,
-            data=data
-        )
-        return response
+        return requests.post(url=f'{self.mazerunner_url}/report_status/', data=data)
 
     def report_log(self, line, level):
-        response = requests.post(
-            url='%s/report_log/' % self.mazerunner_url,
+        return requests.post(
+            url=f'{self.mazerunner_url}/report_log/',
             data={
                 self.REPORT_DECOY_ID_PARAM: self.decoy_id,
                 self.REPORT_COMMUNICATION_KEY_PARAM: self.communication_key,
                 self.REPORT_LOG_PARAM: {
                     self.REPORT_LOG_LEVEL_PARAM: level,
-                    self.REPORT_LOG_LINE_PARAM: line
-                }
-            }
+                    self.REPORT_LOG_LINE_PARAM: line,
+                },
+            },
         )
-        return response
 
     def report_alert(self, alert_data):
-        response = requests.post(
-            url='%s/report_alert/' % self.mazerunner_url,
+        return requests.post(
+            url=f'{self.mazerunner_url}/report_alert/',
             data={
                 self.REPORT_DECOY_ID_PARAM: self.decoy_id,
                 self.REPORT_COMMUNICATION_KEY_PARAM: self.communication_key,
-                self.REPORT_ALERT_PARAM: json.dumps(alert_data)
-            }
+                self.REPORT_ALERT_PARAM: json.dumps(alert_data),
+            },
         )
-        return response

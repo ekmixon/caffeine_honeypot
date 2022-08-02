@@ -24,16 +24,14 @@ class TeaCup(object):
 
     @classmethod
     def _get_redis_key(cls, teacup_id):
-        return '%s_%s' % (cls.REDIS_PREFIX, teacup_id)
+        return f'{cls.REDIS_PREFIX}_{teacup_id}'
 
     def save(self):
         config.get_redis_conn().set(self._get_redis_key(self.id), json.dumps(self.options))
 
     @classmethod
     def get_by_id(cls, teacup_id):
-        raw_data = config.get_redis_conn().get(cls._get_redis_key(teacup_id))
-
-        if not raw_data:
+        if raw_data := config.get_redis_conn().get(cls._get_redis_key(teacup_id)):
+            return cls(options=json.loads(raw_data))
+        else:
             raise NoSuchThingy
-
-        return cls(options=json.loads(raw_data))

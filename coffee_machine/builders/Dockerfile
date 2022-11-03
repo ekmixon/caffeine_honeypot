@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:kinetic-20220830
 
 ADD ./config /etc/teapot-decoy/config
 ADD build-temp/app /etc/teapot-decoy/app

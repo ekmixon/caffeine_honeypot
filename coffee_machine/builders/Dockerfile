@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:22.10
 
 ADD ./config /etc/teapot-decoy/config
 ADD build-temp/app /etc/teapot-decoy/app
